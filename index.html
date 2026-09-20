@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>mixtape</title>
+<link rel="stylesheet" href="style.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Caveat:wght@600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="stars" aria-hidden="true">
+    <span style="top:6%; left:8%;">✦</span>
+    <span style="top:12%; left:88%;">✦</span>
+    <span style="top:40%; left:4%;">★</span>
+    <span style="top:70%; left:92%;">✦</span>
+    <span style="top:85%; left:10%;">★</span>
+    <span style="top:20%; left:50%;">✦</span>
+  </div>
+
+  <nav class="tabbar">
+    <button class="pixel-btn tab-btn active" data-view="player">PLAYER</button>
+    <button class="pixel-btn tab-btn" data-view="profile">PROFILE</button>
+  </nav>
+
+  <!-- ============ PLAYER VIEW ============ -->
+  <main id="view-player" class="view active">
+    <header class="hero">
+      <h1 class="pixel-title">MY MIXTAPE</h1>
+      <div class="cursive-tag">on shuffle</div>
+      <p class="handle">now playing from your own library</p>
+    </header>
+
+    <section class="stage">
+      <div class="arc" id="arc"></div>
+
+      <div class="vinyl-wrap">
+        <div class="vinyl" id="vinyl">
+          <div class="vinyl-label" id="vinylLabel">
+            <span id="vinylTrackNo">00</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tracklist" id="tracklist">
+      <!-- rows injected by renderer.js -->
+    </section>
+
+    <section class="transport">
+      <div class="time-row">
+        <span id="elapsedTime">0:00</span>
+        <div class="time-bar"><div class="time-fill" id="timeFill"></div></div>
+        <span id="totalTime">0:00</span>
+      </div>
+
+      <div class="buttons-row">
+        <button class="pixel-btn" id="btnPrev" title="key: b">◀◀ BACK</button>
+        <button class="pixel-btn" id="btnPlay" title="key: p">▶ PLAY</button>
+        <button class="pixel-btn" id="btnStop" title="key: s">■ STOP</button>
+        <button class="pixel-btn" id="btnNext" title="key: n">NEXT ▶▶</button>
+      </div>
+
+      <p class="key-hint">keyboard: <kbd>↑</kbd><kbd>↓</kbd> move &nbsp; <kbd>enter</kbd> play &nbsp; <kbd>n</kbd> next &nbsp; <kbd>b</kbd> back &nbsp; <kbd>p</kbd> play/pause &nbsp; <kbd>s</kbd> stop</p>
+    </section>
+  </main>
+
+  <!-- ============ PROFILE VIEW (passport-inspired) ============ -->
+  <main id="view-profile" class="view">
+    <div class="passport">
+
+      <div class="passport-page passport-cover">
+        <div class="corner tl">❦</div>
+        <div class="corner tr">❦</div>
+        <div class="corner bl">❦</div>
+        <div class="corner br">❦</div>
+
+        <div class="photo-box" id="photoBox">
+          <span id="photoPlaceholder">add photo</span>
+          <img id="photoPreview" alt="" hidden />
+        </div>
+        <input type="file" id="photoInput" accept="image/*" hidden />
+
+        <div class="stamp">
+          <span>★ VERIFIED LISTENER ★</span>
+        </div>
+
+        <div class="cursive-heading vertical">Mixtape Passport</div>
+      </div>
+
+      <div class="passport-page passport-details">
+        <div class="corner tl">❦</div>
+        <div class="corner tr">❦</div>
+        <div class="corner bl">❦</div>
+        <div class="corner br">❦</div>
+
+        <h2 class="cursive-heading">Mixtape Passport</h2>
+        <p class="passport-sub">LISTENER PROFILE</p>
+
+        <div class="field">
+          <label>NAME:</label>
+          <input type="text" id="pName" placeholder="Your name" />
+        </div>
+        <div class="field">
+          <label>LISTENER SINCE:</label>
+          <input type="date" id="pSince" />
+        </div>
+        <div class="field">
+          <label>HOME BASE:</label>
+          <input type="text" id="pHome" placeholder="City" />
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>TOP GENRE:</label>
+            <input type="text" id="pGenre" placeholder="e.g. bollywood, indie" />
+          </div>
+          <div class="field">
+            <label>MOOD:</label>
+            <input type="text" id="pMood" placeholder="e.g. late night drives" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label>FAVORITE ARTIST:</label>
+          <input type="text" id="pArtist" placeholder="Who's on repeat?" />
+        </div>
+
+        <div class="field">
+          <label>PROFILE CREATED:</label>
+          <input type="date" id="pCreated" disabled />
+        </div>
+
+        <div class="field">
+          <label>SIGNATURE:</label>
+          <input type="text" id="pSignature" class="signature-input" placeholder="sign here" />
+        </div>
+
+        <button class="pixel-btn" id="btnSave">STAMP IT</button>
+        <span class="saved-note" id="savedNote">saved ✓</span>
+      </div>
+    </div>
+  </main>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

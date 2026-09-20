@@ -1,0 +1,12 @@
+{
+  "name": "mixtape-player",
+  "version": "1.0.0",
+  "description": "A pixel/y2k styled desktop music player wrapping VLC playback",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "latest"
+  }
+}
