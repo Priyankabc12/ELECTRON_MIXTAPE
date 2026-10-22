@@ -110,17 +110,25 @@ function render(state) {
 function positionArc() {
   const chips = arcEl.querySelectorAll('.track-chip');
   const n = chips.length;
-  const spread = 150; // total degrees the fan covers
-  const start = -spread / 2;
-  const radius = 150;
+  // Fan the track markers around the upper edge of the record while keeping
+  // the outer chips inside the stage column.
+  const spread = 150;
+  const outerAngle = (spread / 2) * (Math.PI / 180);
+  const maxRadius = (arcEl.parentElement.clientWidth / 2 - 32) / Math.sin(outerAngle);
+  const radius = Math.max(0, Math.min(
+    vinyl.clientWidth / 2 + 54,
+    maxRadius,
+  ));
   chips.forEach((chip, i) => {
-    const angle = n === 1 ? 0 : start + (spread / (n - 1)) * i;
+    const angle = n === 1 ? 0 : -spread / 2 + (spread / (n - 1)) * i;
     const rad = (angle * Math.PI) / 180;
     const x = Math.sin(rad) * radius;
-    const y = -Math.cos(rad) * radius - 40;
+    const y = -Math.cos(rad) * radius;
     chip.style.transform = `translate(${x}px, ${y}px)`;
   });
 }
+
+window.addEventListener('resize', positionArc);
 
 window.api.onState(render);
 

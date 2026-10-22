@@ -18,7 +18,7 @@
 
 html, body {
   margin: 0;
-  height: 100%;
+  min-height: 100%;
   background: var(--paper);
   background-image:
     radial-gradient(circle at 1px 1px, rgba(0,0,0,0.035) 1px, transparent 0);
@@ -26,6 +26,7 @@ html, body {
   color: var(--ink);
   font-family: var(--font-mono);
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .stars {
@@ -60,6 +61,40 @@ html, body {
 /* ===== VIEWS ===== */
 .view { display: none; position: relative; z-index: 1; }
 .view.active { display: block; }
+
+/* Keep the desktop player in one balanced, readable composition. */
+#view-player {
+  width: 100%;
+  min-height: calc(100vh - 54px);
+  margin: 0;
+  padding: 10px clamp(24px, 5vw, 80px) 36px;
+  display: none;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-areas:
+    "hero hero"
+    "stage tracks"
+    "stage controls";
+  grid-template-rows: auto minmax(220px, auto) auto;
+  column-gap: clamp(24px, 4vw, 60px);
+  align-items: center;
+  row-gap: 12px;
+}
+#view-player.active { display: grid; }
+#view-player .hero { grid-area: hero; padding-top: 12px; }
+#view-player .stage { grid-area: stage; grid-row: 2 / 4; width: 100%; height: clamp(340px, 48vh, 480px); margin: 0; align-self: center; align-items: center; }
+#view-player .vinyl-wrap,
+#view-player .vinyl { width: clamp(260px, 32vw, 370px); height: clamp(260px, 32vw, 370px); }
+#view-player .tracklist { grid-area: tracks; width: 100%; max-width: none; margin: 0; padding: 0; align-self: end; }
+#view-player .track-row { gap: 18px; min-width: 0; padding: 10px 12px; }
+#view-player .track-row .num { font-size: 13px; }
+#view-player .track-row .name { min-width: 0; overflow-wrap: anywhere; font-size: 17px; }
+#view-player .transport { grid-area: controls; width: 100%; max-width: none; margin: 18px 0 0; padding: 0; align-self: start; }
+#view-player .buttons-row { gap: 12px; }
+#view-player .buttons-row .pixel-btn { flex: 1 1 150px; }
+#view-player .pixel-btn { font-size: 11px; padding: 13px 16px; }
+#view-player .pixel-title { font-size: clamp(32px, 5vw, 48px); }
+#view-player .cursive-tag { font-size: 40px; }
+#view-player .handle { font-size: 13px; }
 
 /* ===== PIXEL BUTTON (shared: transport + tabs + save) ===== */
 .pixel-btn {
@@ -156,7 +191,7 @@ html, body {
 
 .arc {
   position: absolute;
-  bottom: 210px;
+  top: 50%;
   left: 50%;
   width: 0;
   height: 0;
@@ -375,11 +410,42 @@ kbd {
 }
 .saved-note.show { opacity: 1; }
 
+@media (max-width: 820px) {
+  #view-player {
+    width: 100%;
+    min-height: auto;
+    padding: 4px 18px 28px;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas: "hero" "stage" "tracks" "controls";
+    row-gap: 12px;
+  }
+  #view-player .hero { padding-top: 12px; }
+  #view-player .stage { grid-row: auto; height: 270px; }
+  #view-player .vinyl-wrap,
+  #view-player .vinyl { width: min(68vw, 280px); height: min(68vw, 280px); }
+  #view-player .tracklist { align-self: auto; }
+  #view-player .transport { margin-top: 12px; }
+  #view-player .pixel-btn { font-size: 9px; padding: 10px 12px; }
+  .key-hint { line-height: 1.8; }
+}
+
 @media (max-width: 640px) {
+  #view-player .vinyl-wrap,
+  #view-player .vinyl { width: min(68vw, 240px); height: min(68vw, 240px); }
   .passport { grid-template-columns: 1fr; }
   .passport-page { border-left: none; border-top: 1px dashed #a98a5f; }
   .passport-page:first-child { border-top: none; }
   .cursive-heading.vertical { display: none; }
+}
+
+@media (min-width: 641px) and (max-height: 680px) {
+  #view-player .hero { padding-top: 8px; }
+  #view-player .stage { height: 340px; }
+  #view-player .vinyl-wrap,
+  #view-player .vinyl { width: min(30vw, 300px); height: min(30vw, 300px); }
+  #view-player .transport { margin-top: 12px; }
+  .key-hint { margin-top: 8px; }
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }
